@@ -20,7 +20,6 @@ public class Instrutor {
     @Column(nullable = false)
     private String nome;
 
-    // Associação com o Estilo (especialização do instrutor)
     @ManyToOne
     @JoinColumn(name = "estilo_id", nullable = false)
     private Estilo estilo;

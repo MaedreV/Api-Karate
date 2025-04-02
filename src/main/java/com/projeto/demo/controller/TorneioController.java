@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -58,7 +59,7 @@ public record TorneioController(TorneioService torneioService) {
         @ApiResponse(responseCode = "201", description = "Torneio criado"),
         @ApiResponse(responseCode = "422", description = "Dados de torneio invalido")
     })
-    public ResponseEntity<TorneioDto> create(@RequestBody TorneioDto torneioDto) {
+    public ResponseEntity<TorneioDto> create(@RequestBody @Valid TorneioDto torneioDto) {
         var torneio = torneioService.create(torneioDto.toModel());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -74,7 +75,7 @@ public record TorneioController(TorneioService torneioService) {
         @ApiResponse(responseCode = "404", description = "Torneio não encontrado"),
         @ApiResponse(responseCode = "422", description = "Dados de torneio invalido")
     })
-    public ResponseEntity<TorneioDto> update(@PathVariable Long id, @RequestBody TorneioDto torneioDto) {
+    public ResponseEntity<TorneioDto> update(@PathVariable Long id, @RequestBody @Valid TorneioDto torneioDto) {
         var torneio = torneioService.update(id, torneioDto.toModel());
         return ResponseEntity.ok(new TorneioDto(torneio));
     }

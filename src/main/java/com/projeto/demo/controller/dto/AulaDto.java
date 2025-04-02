@@ -6,12 +6,21 @@ import java.util.stream.Collectors;
 
 import com.projeto.demo.domain.model.Aula;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public record AulaDto(
         Long id,
+        @NotNull(message = "Descrição não pode ser nula")
+        @Size(min = 1, message = "Descrição deve ter ao menos um caractere")
         String descricao,
+        @NotNull(message = "Data e hora não pode ser nula")
         LocalDateTime dataHora,
+        @NotNull(message = "Instrutor não pode ser nulo")
         InstrutorDto instrutor,
+        @NotNull(message = "Estilo não pode ser nulo")
         EstiloDto estilo,
+        @NotNull(message = "Lista de alunos não pode ser nula")
         List<AlunoDto> alunos) {
 
     public AulaDto(Aula aula) {

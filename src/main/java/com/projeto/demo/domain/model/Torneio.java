@@ -28,12 +28,10 @@ public class Torneio {
     @Column(name = "data_evento", nullable = false)
     private LocalDate dataEvento;
 
-    // Associação com o Estilo do torneio (caso o evento seja específico de um estilo)
     @ManyToOne
     @JoinColumn(name = "estilo_id")
     private Estilo estilo;
 
-    // Associação de muitos-para-muitos com os alunos participantes
     @ManyToMany
     @JoinTable(
             name = "torneio_aluno",

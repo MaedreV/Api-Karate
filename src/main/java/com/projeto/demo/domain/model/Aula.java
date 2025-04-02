@@ -28,17 +28,14 @@ public class Aula {
     @Column(nullable = false)
     private LocalDateTime dataHora;
 
-    // Associação com o Instrutor responsável pela aula
     @ManyToOne
     @JoinColumn(name = "instrutor_id", nullable = false)
     private Instrutor instrutor;
 
-    // Associação com o Estilo da aula (pode ser redundante, mas permite flexibilidade)
     @ManyToOne
     @JoinColumn(name = "estilo_id", nullable = false)
     private Estilo estilo;
 
-    // Associação de muitos-para-muitos com os alunos participantes
     @ManyToMany
     @JoinTable(
             name = "aula_aluno",

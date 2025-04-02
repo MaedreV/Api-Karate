@@ -26,11 +26,9 @@ public class Aluno {
     @Column(name = "data_ingresso", nullable = false)
     private LocalDate dataIngresso;
 
-    // Construtor sem argumentos
     public Aluno() {
     }
 
-    // Construtor com argumentos
     public Aluno(Long id, String nome, String faixa, LocalDate dataIngresso) {
         this.id = id;
         this.nome = nome;

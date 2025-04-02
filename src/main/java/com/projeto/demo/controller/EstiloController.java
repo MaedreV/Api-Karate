@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -58,7 +59,7 @@ public record EstiloController(EstiloService estiloService) {
         @ApiResponse(responseCode = "201", description = "Estilo criado "),
         @ApiResponse(responseCode = "422", description = "Dados de estilo invalido")
     })
-    public ResponseEntity<EstiloDto> create(@RequestBody EstiloDto estiloDto) {
+    public ResponseEntity<EstiloDto> create(@RequestBody @Valid EstiloDto estiloDto) {
         var estilo = estiloService.create(estiloDto.toModel());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -74,7 +75,7 @@ public record EstiloController(EstiloService estiloService) {
         @ApiResponse(responseCode = "404", description = "Estilo não encontrado"),
         @ApiResponse(responseCode = "422", description = "Dados de estilo invalido")
     })
-    public ResponseEntity<EstiloDto> update(@PathVariable Long id, @RequestBody EstiloDto estiloDto) {
+    public ResponseEntity<EstiloDto> update(@PathVariable Long id, @RequestBody @Valid EstiloDto estiloDto) {
         var estilo = estiloService.update(id, estiloDto.toModel());
         return ResponseEntity.ok(new EstiloDto(estilo));
     }

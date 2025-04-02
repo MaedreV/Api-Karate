@@ -47,7 +47,6 @@ public class AlunoServiceImpl extends CrudServiceImpl<Aluno, Long> implements Al
     @Override
     @Transactional
     public void delete(Long id) {
-        // Aqui você pode adicionar regras específicas para deleção, se necessário.
         super.delete(id);
     }
 }

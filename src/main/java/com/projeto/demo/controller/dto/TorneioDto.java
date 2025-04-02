@@ -6,11 +6,18 @@ import java.util.stream.Collectors;
 
 import com.projeto.demo.domain.model.Torneio;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public record TorneioDto(
         Long id,
+        @NotNull(message = "Nome não pode ser nulo")
+        @Size(min = 1, message = "Nome deve ter ao menos um caractere")
         String nome,
+        @NotNull(message = "Data do evento não pode ser nula")
         LocalDate dataEvento,
         EstiloDto estilo,
+        @NotNull(message = "Lista de participantes não pode ser nula")
         List<AlunoDto> participantes) {
 
     public TorneioDto(Torneio torneio) {

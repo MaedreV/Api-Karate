@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -58,7 +59,7 @@ public record AlunoController(AlunoService alunoService) {
         @ApiResponse(responseCode = "201", description = "Aluno criado"),
         @ApiResponse(responseCode = "422", description = "Dados de aluno invalido")
     })
-    public ResponseEntity<AlunoDto> create(@RequestBody AlunoDto alunoDto) {
+    public ResponseEntity<AlunoDto> create(@RequestBody @Valid AlunoDto alunoDto) {
         var aluno = alunoService.create(alunoDto.toModel());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -74,7 +75,7 @@ public record AlunoController(AlunoService alunoService) {
         @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
         @ApiResponse(responseCode = "422", description = "Dados de  aluno invalido")
     })
-    public ResponseEntity<AlunoDto> update(@PathVariable Long id, @RequestBody AlunoDto alunoDto) {
+    public ResponseEntity<AlunoDto> update(@PathVariable Long id, @RequestBody @Valid AlunoDto alunoDto) {
         var aluno = alunoService.update(id, alunoDto.toModel());
         return ResponseEntity.ok(new AlunoDto(aluno));
     }

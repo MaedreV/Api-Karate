@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -58,7 +59,7 @@ public record InstrutorController(InstrutorService instrutorService) {
         @ApiResponse(responseCode = "201", description = "Instrutor criado"),
         @ApiResponse(responseCode = "422", description = "Dados de instrutor invalido")
     })
-    public ResponseEntity<InstrutorDto> create(@RequestBody InstrutorDto instrutorDto) {
+    public ResponseEntity<InstrutorDto> create(@RequestBody @Valid InstrutorDto instrutorDto) {
         var instrutor = instrutorService.create(instrutorDto.toModel());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -74,7 +75,7 @@ public record InstrutorController(InstrutorService instrutorService) {
         @ApiResponse(responseCode = "404", description = "Instrutor não encontrado"),
         @ApiResponse(responseCode = "422", description = "Dados de instrutor invalido")
     })
-    public ResponseEntity<InstrutorDto> update(@PathVariable Long id, @RequestBody InstrutorDto instrutorDto) {
+    public ResponseEntity<InstrutorDto> update(@PathVariable Long id, @RequestBody @Valid InstrutorDto instrutorDto) {
         var instrutor = instrutorService.update(id, instrutorDto.toModel());
         return ResponseEntity.ok(new InstrutorDto(instrutor));
     }

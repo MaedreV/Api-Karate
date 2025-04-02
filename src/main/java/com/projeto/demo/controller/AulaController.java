@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -58,7 +59,7 @@ public record AulaController(AulaService aulaService) {
         @ApiResponse(responseCode = "201", description = "Aula criada"),
         @ApiResponse(responseCode = "422", description = "Dados de aula invalida")
     })
-    public ResponseEntity<AulaDto> create(@RequestBody AulaDto aulaDto) {
+    public ResponseEntity<AulaDto> create(@RequestBody @Valid AulaDto aulaDto) {
         var aula = aulaService.create(aulaDto.toModel());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -74,7 +75,7 @@ public record AulaController(AulaService aulaService) {
         @ApiResponse(responseCode = "404", description = "Aula não encontrada"),
         @ApiResponse(responseCode = "422", description = "Dados de aula invalida")
     })
-    public ResponseEntity<AulaDto> update(@PathVariable Long id, @RequestBody AulaDto aulaDto) {
+    public ResponseEntity<AulaDto> update(@PathVariable Long id, @RequestBody @Valid AulaDto aulaDto) {
         var aula = aulaService.update(id, aulaDto.toModel());
         return ResponseEntity.ok(new AulaDto(aula));
     }
